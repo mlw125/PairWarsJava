@@ -12,35 +12,37 @@ public class AccountController extends AbstractController {
 	}
 	
 	// for AccountView operations
-	public void operation(String option, String title){
-		/*
-		if(option.equals(AccountView.SAVE)){ // pressing save
-			((AccountModel)getModel()).save();
+	public void operation(String option, int players){
+		
+		if(option.equals(AccountView.RUN)){ // pressing save
+			//((AccountModel)getModel()).save();
 		} else if(option.equals(AccountView.EXIT)){ // pressing exit
 			((AccountModel)getModel()).exit();
-		} else if(option.equals(AccountView.EDITUS)){ // opening us window
-			((AccountModel)getModel()).openWindow(title, "OU");			
-		} else if(option.equals(AccountView.EDITEURO)){ // opening euro window
-			((AccountModel)getModel()).openWindow(title, "OE");
-		} else if(option.equals(AccountView.EDITYUAN)){ // opening yuan window
-			((AccountModel)getModel()).openWindow(title, "OY");
+		} else if(option.equals(AccountView.STOP)){ // opening us window
+			//((AccountModel)getModel()).openWindow(title, "OU");			
+		} else if(option.equals(AccountView.SAVE)){ // opening euro window
+			//((AccountModel)getModel()).openWindow(title, "OE");
+		}/* else if(option.equals(AccountView.EDITYUAN)){ // opening yuan window
+			//((AccountModel)getModel()).openWindow(title, "OY");
 		} else if(option.equals(AccountView.DEPOSIT)){ // for a agent that will start a deposit thread
 			((AccountView)getView()).threadStart(title, "D");
 		} else if(option.equals(AccountView.WITHDRAW)){ // for a agent that will start a withdraw thread
 			((AccountView)getView()).threadStart(title, "W");
 		} else if(option.equals("Initialize")){ // Initializing the main view, not a button 
 			((AccountModel)getModel()).initData(title);
-		} else if(option.equals("OK")){ // for closing dialog box
+		}*/ else if(option.equals("OK")){ // for closing dialog box
 			((AccountView)getView()).hideError();
 		} // end if/else
-		*/
+		
 	} // end operation()
 	
+	/*
 	// get the titles of each user
 	public String[] getTitles() {
-		String[] comboData = ((AccountModel)getModel()).returnList();
+		String[] comboData = [" "];// = ((AccountModel)getModel()).returnList();
 		return comboData;
 	} // end getTitles()
+	*/
 /*
 	// for buttons on the us windows
 	public void operationUS(String actionCommand, String title, String amount) {

@@ -1,5 +1,6 @@
 package pairWars.view;
 import javax.swing.*; 
+
 import java.awt.*; 
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -53,7 +54,13 @@ public class AccountView extends JFrameView {
 		buttonPanel.add(jButtonRun);
 		buttonPanel.add(jButtonStop);
 		
+		JTextField players = new JTextField();
+		players.setText("vbsbsbs");
+		
+		//this.setLayout(new GridLayout(4, 4, 5, 5));
+		//this.getContentPane().add(players, null);
 		this.getContentPane().add(buttonPanel, BorderLayout.CENTER);
+		//this.add(players, null);
 		pack();
 	 } // end constructor
 	
@@ -134,10 +141,10 @@ public class AccountView extends JFrameView {
 			// catch mainly used when there is an error reading the file, this way the program can get to the part
 			// where the dialog box can be displayed
 			try {
-				//((AccountController)getController()).operation(e.getActionCommand(), comboBox.getSelectedItem().toString()); 
+				((AccountController)getController()).operation(e.getActionCommand(), 3); 
 			} // end try
 			catch (NullPointerException error) {
-				((AccountController)getController()).operation(e.getActionCommand(), ""); 
+				((AccountController)getController()).operation(e.getActionCommand(), -1); 
 			} // end catch
 	    } // end actionPerformed
 	} // end class Handler
