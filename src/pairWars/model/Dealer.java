@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Dealer {
 	
-	ArrayList<Integer> deck;
+	ArrayList<Card> deck;
 	
 	public Dealer() {
 		createDeck();
@@ -15,12 +15,13 @@ public class Dealer {
 	
 	// This functions initializes the deck and fills it with cards
 	public void createDeck() {
-		ArrayList<Integer> deck = new ArrayList<Integer>();
+		deck = new ArrayList<Card>();
 		
 		// creates a deck, with values 1-13. Four of each are created.
 		for(int x = 1; x < 14; x++) {
 			for(int y = 0; y < 4; y++) {
-				deck.add(x);
+				Card temp = new Card(x,y);
+				deck.add(temp);
 			} // end for
 		} // end for
 	} // end createDeck()
@@ -32,14 +33,15 @@ public class Dealer {
 	} // end shuffle()
 	
 	// Return one card from the deck
-	public int dealCard() {
+	public Card dealCard() {
 		if(deck.size() > 2) {
-			int card = deck.get(0);
+			Card card = deck.get(0);
 			deck.remove(0);
 			return card;
 		} // end if
 		else {
-			return -1;
+			Card card = new Card();
+			return card;
 		} // end else
 	} // end dealCard()
 }
