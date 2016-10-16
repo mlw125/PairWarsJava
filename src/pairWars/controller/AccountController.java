@@ -1,12 +1,12 @@
 package pairWars.controller;
-import pairWars.model.AccountModel;
+import pairWars.model.GameModel;
 import pairWars.view.AccountView;
 import pairWars.view.JFrameView;
 
 public class AccountController extends AbstractController {
 	public AccountController(){
 		setModel(new AccountModel());
-		setView(new AccountView((AccountModel)getModel(), this));
+		setView(new AccountView((GameModel)getModel(), this));
 		((JFrameView)getView()).setSize(500, 200);
 		((JFrameView)getView()).setVisible(true);
 	}

@@ -149,11 +149,6 @@ public class AccountView extends JFrameView {
 	    } // end actionPerformed
 	} // end class Handler
 	
-	// main function
-	public static void main(String [] args) {
-		new AccountController();
-	} // end main
-	
 	// for creating the error dialog box
 	public void errorBox(String errorType) {
 		// string hold the message

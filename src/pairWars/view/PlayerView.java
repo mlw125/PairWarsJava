@@ -10,7 +10,6 @@ import javax.swing.JTextField;
 import pairWars.controller.Controller;
 import pairWars.model.Model;
 import pairWars.model.ModelEvent;
-import pairWars.view.euroBox.Handler;
 
 public class PlayerView extends JFrameView {
 	
@@ -29,23 +28,14 @@ public class PlayerView extends JFrameView {
 		cards.setText("0.0");
 		cards.setEditable(false);
 		
-		Handler handler = new Handler();
-		
 		this.setLayout(new GridLayout(4, 4, 5, 5));
 		this.add(cards, null);
 		this.pack();
 	}
-	
-	class Handler implements ActionListener {
-		// Event handling is handled locally
-		public void actionPerformed(ActionEvent e) {
-			//((AccountController)getController()).operationEuro(e.getActionCommand(), title, dataFieldEuro.getText()); 
-	    } 
-	}
 
 	@Override
 	public void modelChanged(ModelEvent event) {
-		// TODO Auto-generated method stub
+		//textField.setText(textField.getText() + newStringHere); 
 
 	}
 

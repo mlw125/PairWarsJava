@@ -15,9 +15,4 @@ public class ModelEvent extends ActionEvent {
 		this.title = title;
 		this.message = message;
 	}
-	public double getDollar() {return usd;}
-	public double getEuro() {return euro;}
-	public double getYuan() {return yuan;}
-	public String getMessage() {return message;}
-	public String getTitle() {return title;}
 }
