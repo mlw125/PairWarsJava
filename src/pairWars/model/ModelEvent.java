@@ -17,4 +17,28 @@ public class ModelEvent extends ActionEvent {
 		this.id = id;
 		this.message = message;
 	}
+	
+	public int id() {
+		return id;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
+	
+	public int getFace1() {
+		return face1;
+	}
+	
+	public int getSuit1() {
+		return suit1;
+	}
+	
+	public int getFace2() {
+		return face2;
+	}
+
+	public int getSuit2() {
+		return suit2;
+	}
 }
