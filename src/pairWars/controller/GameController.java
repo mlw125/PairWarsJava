@@ -16,11 +16,12 @@ public class GameController extends AbstractController {
 	// for GameView operations
 	public void operation(String option, int players){
 		if(option.equals(AccountView.RUN)){ // pressing save
+			((GameView)getView()).Initialize(players);
 			runGame(players);
 		} else if(option.equals(AccountView.EXIT)){ // pressing exit
 			((GameModel)getModel()).exit();
 		} else if(option.equals(AccountView.STOP)){ // opening us window
-			//((AccountModel)getModel()).openWindow(title, "OU");			
+						
 		} else if(option.equals(AccountView.SAVE)){ // opening euro window
 				//((AccountModel)getModel()).openWindow(title, "OE");
 		} else if(option.equals("OK")){ // for closing dialog box
@@ -44,8 +45,11 @@ public class GameController extends AbstractController {
 			// deal out the cards to everyone
 			((GameModel)getModel()).deal();
 			
+			System.out.println("Round: " + rounds + " starting");
 			// loop until someone has a pair
 			while(winner != true) {
+				// deal with dealer having no cards left in the deck
+				System.out.println("Player: " + (playerTurn+1) + "'s turn\n");
 				// if the deck is not empty then deal out another card
 				if(((GameModel)getModel()).isEmpty() != true) {
 					((GameModel)getModel()).dealCard(playerTurn);
@@ -53,11 +57,21 @@ public class GameController extends AbstractController {
 				
 				// check if the current player has a pair
 				if(((GameModel)getModel()).winner(playerTurn) == true) {
+					System.out.println("In winning loop.\n");
 					// next round
 					rounds++;
 					// will break the current loop
 					winner = true;
 				} // end if
+				
+				/*
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				*/
 				
 				// make sure if we reach the last player created then we will start with the first player,
 				// otherwise go to next player

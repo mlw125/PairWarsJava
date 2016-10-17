@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,6 +29,9 @@ public class GameView extends JFrameView {
 	public JDialog error;
 	// for checking for severe errors
 	private boolean severeError = false;
+	
+	int playerCount = 0;
+	ArrayList<PlayerView> players; 
 
 	public GameView(GameModel model, GameController controller) {
 		super(model, controller);
@@ -92,14 +96,8 @@ public class GameView extends JFrameView {
 	class Handler implements ActionListener {
 		// Event handling is handled locally
 		public void actionPerformed(ActionEvent e) {
-			// catch mainly used when there is an error reading the file, this way the program can get to the part
-			// where the dialog box can be displayed
-			try {
-				((AccountController)getController()).operation(e.getActionCommand(), 3); 
-			} // end try
-			catch (NullPointerException error) {
-				((AccountController)getController()).operation(e.getActionCommand(), -1); 
-			} // end catch
+			// send textfield.getText for number of players
+			((GameController)getController()).operation(e.getActionCommand(), 3); 
 		   } // end actionPerformed
 	} // end class Handler
 	
@@ -169,4 +167,13 @@ public class GameView extends JFrameView {
 			error.setVisible(false);
 		} // end else
 	} // end hideError()
+
+	public void Initialize(int playerCount) {
+		this.playerCount = playerCount;
+		players = new ArrayList<PlayerView>();
+		for(int x = 0; x < playerCount; x++) {
+			PlayerView newPlayer = new PlayerView(((GameModel)getModel()), ((GameController)getController()), x);
+			players.add(newPlayer);
+		}
+	} 
 } // end class GameView

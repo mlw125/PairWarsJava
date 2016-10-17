@@ -11,6 +11,7 @@ public class GameModel extends AbstractModel {
 	
 	// create the number of players specified by either the program or the user
 	public void createPlayers(int n) {
+		players = new ArrayList<Player>();
 		for(int x = 0; x < n; x++) {
 			Player newPlayer = new Player(x);
 			players.add(newPlayer);
@@ -24,6 +25,7 @@ public class GameModel extends AbstractModel {
 	
 	// deal out one card
 	public void deal() {
+		System.out.println("Handing out cards");
 		// loop through each of the players in the deck
 		for(int x = 0; x < 5; x++) {
 			// give each player 5 cards, might change later
@@ -41,6 +43,7 @@ public class GameModel extends AbstractModel {
 	} // end deal()
 	
 	public void dealCard(int playerID) {
+		System.out.println("Dealing out a card");
 		players.get(playerID).getCard(dealer.dealCard());		
 	} // end dealCard()
 	

@@ -28,7 +28,7 @@ public class PlayerView extends JFrameView {
 		this.id = id;
 		
 		cards = new JTextField();
-		cards.setText("0.0");
+		cards.setText("No cards");
 		cards.setEditable(false);
 		
 		this.setLayout(new GridLayout(4, 4, 5, 5));
@@ -38,9 +38,8 @@ public class PlayerView extends JFrameView {
 
 	@Override
 	public void modelChanged(ModelEvent event) {
-		//textField.setText(textField.getText() + newStringHere);
 		if(event.getID() == id) {
-			if(event.getMessage().equals("NewCard")) { // number formatting error
+			if(event.getMessage().equals("NewCard")) {
 				suit.add(event.getSuit1());
 				face.add(event.getFace1());
 				updateCards();
@@ -49,7 +48,13 @@ public class PlayerView extends JFrameView {
 	}
 	
 	public void updateCards() {
-		
+		cards.setText("");
+		for(int x = 0; x < suit.size(); x++) {
+			CardView cardStr = new CardView();
+			String cardValue = cardStr.getCard(suit.get(x), face.get(x));
+			String text = cards.getText();
+			cards.setText(text + cardValue);
+		}
 	}
 
 }
