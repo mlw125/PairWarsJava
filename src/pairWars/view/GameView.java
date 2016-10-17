@@ -58,8 +58,7 @@ public class GameView extends JFrameView {
 
 	@Override
 	public void modelChanged(ModelEvent event) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 	
 	// Inner classes for Event Handling 

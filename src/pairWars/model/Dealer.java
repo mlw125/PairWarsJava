@@ -44,4 +44,13 @@ public class Dealer {
 			return card;
 		} // end else
 	} // end dealCard()
-}
+	
+	public Boolean isEmpty() {
+		if(deck.size() == 0) {
+			return true;
+		} // end if
+		else {
+			return false;
+		} // end else
+	} // end isEmpty()
+} // end class GameModel

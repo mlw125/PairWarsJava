@@ -1,19 +1,23 @@
 package pairWars.model;
 
 public class Card {
-	int type;
+	int face;
 	int suit;
 	
 	public Card() {
-		this.type = -1;
+		this.face = -1;
 	}	
 
 	public Card(int type, int suit) {
-		this.type = type;
+		this.face = type;
 		this.suit = suit;
 	}
+
+	public int getFace() {
+		return this.face;
+	}
 	
-	public int getCard() {
-		return type;
+	public int getSuit() {
+		return this.suit;
 	}
 }
