@@ -1,14 +1,13 @@
 package pairWars.view;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import pairWars.controller.Controller;
+import pairWars.controller.GameController;
 import pairWars.model.Model;
 import pairWars.model.ModelEvent;
 
@@ -38,7 +37,9 @@ public class PlayerView extends JFrameView {
 
 	@Override
 	public void modelChanged(ModelEvent event) {
+		System.out.println(id);
 		if(event.getID() == id) {
+			System.out.println(id + " event recieved");
 			if(event.getMessage().equals("NewCard")) {
 				suit.add(event.getSuit1());
 				face.add(event.getFace1());
@@ -53,7 +54,7 @@ public class PlayerView extends JFrameView {
 			CardView cardStr = new CardView();
 			String cardValue = cardStr.getCard(suit.get(x), face.get(x));
 			String text = cards.getText();
-			cards.setText(text + cardValue);
+			cards.setText(text + " | " + cardValue);
 		}
 	}
 

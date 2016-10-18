@@ -1,7 +1,6 @@
 package pairWars.controller;
 
 import pairWars.model.GameModel;
-import pairWars.view.AccountView;
 import pairWars.view.GameView;
 import pairWars.view.JFrameView;
 
@@ -15,19 +14,21 @@ public class GameController extends AbstractController {
 	
 	// for GameView operations
 	public void operation(String option, int players){
-		if(option.equals(AccountView.RUN)){ // pressing save
+		if(option.equals(GameView.RUN)){ // pressing save
 			((GameView)getView()).Initialize(players);
 			runGame(players);
-		} else if(option.equals(AccountView.EXIT)){ // pressing exit
+		} else if(option.equals(GameView.EXIT)){ // pressing exit
 			((GameModel)getModel()).exit();
-		} else if(option.equals(AccountView.STOP)){ // opening us window
+		} else if(option.equals(GameView.STOP)){ // opening us window
 						
-		} else if(option.equals(AccountView.SAVE)){ // opening euro window
+		} else if(option.equals(GameView.SAVE)){ // opening euro window
 				//((AccountModel)getModel()).openWindow(title, "OE");
 		} else if(option.equals("OK")){ // for closing dialog box
 			//((GameView)getView()).hideError();
 		} // end if/else			
 	} // end operation()
+	
+	boolean runGame;
 	
 	public void runGame(int players) {
 		// the rounds that will be played
@@ -49,7 +50,7 @@ public class GameController extends AbstractController {
 			// loop until someone has a pair
 			while(winner != true) {
 				// deal with dealer having no cards left in the deck
-				System.out.println("Player: " + (playerTurn+1) + "'s turn\n");
+				System.out.println("Player: " + (playerTurn+1) + "'s turn");
 				// if the deck is not empty then deal out another card
 				if(((GameModel)getModel()).isEmpty() != true) {
 					((GameModel)getModel()).dealCard(playerTurn);
@@ -57,12 +58,18 @@ public class GameController extends AbstractController {
 				
 				// check if the current player has a pair
 				if(((GameModel)getModel()).winner(playerTurn) == true) {
-					System.out.println("In winning loop.\n");
+					System.out.println("In winning loop.");
 					// next round
 					rounds++;
 					// will break the current loop
 					winner = true;
 				} // end if
+				
+				runGame = false;
+				
+				// make lock so the program doesn't go on
+				
+				//while(runGame == false) { }
 				
 				/*
 				try {
@@ -73,6 +80,7 @@ public class GameController extends AbstractController {
 				}
 				*/
 				
+				
 				// make sure if we reach the last player created then we will start with the first player,
 				// otherwise go to next player
 				if(playerTurn+1 == players)
@@ -80,6 +88,23 @@ public class GameController extends AbstractController {
 				else
 					playerTurn++; // end else
 			} // end while
+			
+			/*
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			*/
 		} // end while
+		
+		// say game is over
+		System.out.println("Game over");
 	} // end runGame()
+	
+	public void continueGame() {
+		runGame = true;
+		//((GameModel)getModel()).go();
+	}
 } // end class GameController

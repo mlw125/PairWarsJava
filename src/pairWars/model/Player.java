@@ -13,9 +13,10 @@ public class Player extends AbstractModel {
 	
 	public void getCard(Card card) {
 		hand.add(card);
-		int temp = hand.size() - 1;
+		System.out.println(id + " getting a card\n");
+		/*int temp = hand.size() - 1;
 		ModelEvent me = new ModelEvent(this, id, "NewCard", hand.get(temp).getFace(), hand.get(temp).getSuit(), -1, -1);
-		notifyChanged(me);
+		notifyChanged(me);*/
 	}
 	
 	// check if there is a pair in the players hand
@@ -28,10 +29,16 @@ public class Player extends AbstractModel {
 					ModelEvent me = new ModelEvent(this, id, "Pair", hand.get(x).getFace(), hand.get(x).getSuit(), 
 													hand.get(y).getFace(), hand.get(x).getSuit());
 					notifyChanged(me);
+					System.out.println(id + " is the winner.\n");
 					return true;
 				} // end if
 			} // end for
 		} // end for
 		return false;
 	} // end isPair()
+	
+	public Card returnLastCard() {
+		int temp = hand.size()-1;
+		return hand.get(temp);
+	}
 }

@@ -11,13 +11,11 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import pairWars.controller.AccountController;
 import pairWars.controller.Controller;
 import pairWars.controller.GameController;
 import pairWars.model.GameModel;
 import pairWars.model.Model;
 import pairWars.model.ModelEvent;
-import pairWars.view.AccountView.Handler;
 
 public class GameView extends JFrameView {
 	public static final String SAVE = "Save";

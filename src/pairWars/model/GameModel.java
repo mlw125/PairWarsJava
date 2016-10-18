@@ -44,7 +44,10 @@ public class GameModel extends AbstractModel {
 	
 	public void dealCard(int playerID) {
 		System.out.println("Dealing out a card");
-		players.get(playerID).getCard(dealer.dealCard());		
+		players.get(playerID).getCard(dealer.dealCard());
+		Card temp = players.get(playerID).returnLastCard();
+		ModelEvent me = new ModelEvent(this, playerID, "NewCard", temp.getFace(), temp.getSuit(), -1, -1);
+		notifyChanged(me);
 	} // end dealCard()
 	
 	public Boolean winner(int playerID) {
@@ -58,5 +61,9 @@ public class GameModel extends AbstractModel {
 	public void exit() {
 		// close the program
 		System.exit(0);		
+	}
+	
+	public synchronized void go() {
+		//notifyAll();
 	}
 } // end class GameModel
