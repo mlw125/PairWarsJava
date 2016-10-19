@@ -22,7 +22,7 @@ public class CardView {
 			break;
 		}
 
-		switch(suit) {
+		switch(face) {
 		case 1:
 			card += "A";
 			break;

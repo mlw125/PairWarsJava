@@ -37,9 +37,9 @@ public class PlayerView extends JFrameView {
 
 	@Override
 	public void modelChanged(ModelEvent event) {
-		System.out.println(id);
-		if(event.getID() == id) {
-			System.out.println(id + " event recieved");
+		System.out.println(id + ": event recieved.");
+		if(event.getPlayerID() == id) {
+			System.out.println(id + ": event for me");
 			if(event.getMessage().equals("NewCard")) {
 				suit.add(event.getSuit1());
 				face.add(event.getFace1());
@@ -54,7 +54,7 @@ public class PlayerView extends JFrameView {
 			CardView cardStr = new CardView();
 			String cardValue = cardStr.getCard(suit.get(x), face.get(x));
 			String text = cards.getText();
-			cards.setText(text + " | " + cardValue);
+			cards.setText(text + " | " + cardValue + "\n");
 		}
 	}
 

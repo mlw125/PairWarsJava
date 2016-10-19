@@ -2,7 +2,7 @@ package pairWars.model;
 
 import java.util.ArrayList;
 
-public class Player extends AbstractModel {
+public class Player extends AbstractModel implements Runnable {
 	int id;
 	ArrayList<Card> hand = new ArrayList<Card>();
 	// make list for pairs
@@ -40,5 +40,14 @@ public class Player extends AbstractModel {
 	public Card returnLastCard() {
 		int temp = hand.size()-1;
 		return hand.get(temp);
+	}
+
+	@Override
+	public void run() {	
+		
+	}
+	
+	int getID() {
+		return id;
 	}
 }
