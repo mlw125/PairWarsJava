@@ -29,7 +29,7 @@ public class GameView extends JFrameView {
 	private boolean severeError = false;
 	
 	int playerCount = 0;
-	ArrayList<PlayerView> players; 
+	ArrayList<PlayerView> players = new ArrayList<PlayerView>(); 
 
 	public GameView(GameModel model, GameController controller) {
 		super(model, controller);
@@ -168,10 +168,18 @@ public class GameView extends JFrameView {
 
 	public void Initialize(int playerCount) {
 		this.playerCount = playerCount;
-		players = new ArrayList<PlayerView>();
 		for(int x = 0; x < playerCount; x++) {
 			PlayerView newPlayer = new PlayerView(((GameModel)getModel()), ((GameController)getController()), x);
 			players.add(newPlayer);
 		}
-	} 
+	}
+
+	public void clearPlayers() {
+		if(players.size() > 0) {
+			for(int x = 0; x < players.size(); x++) {
+				players.get(x).dispose();
+			} // end for
+			players.clear();
+		}
+	} // end clearPlayers();
 } // end class GameView

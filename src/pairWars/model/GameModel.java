@@ -25,7 +25,6 @@ public class GameModel extends AbstractModel {
 	
 	// deal out one card
 	public void deal() {
-		System.out.println("Handing out cards");
 		// loop through each of the players in the deck
 		for(int x = 0; x < 5; x++) {
 			// give each player 5 cards, might change later
@@ -46,7 +45,6 @@ public class GameModel extends AbstractModel {
 	} // end deal()
 	
 	public void dealCard(int playerID) {
-		System.out.println("Dealing out a card");
 		players.get(playerID).getCard(dealer.dealCard());
 		Card temp = players.get(playerID).returnLastCard();
 		ModelEvent me = new ModelEvent(this, playerID, "NewCard", temp.getFace(), temp.getSuit(), -1, -1);

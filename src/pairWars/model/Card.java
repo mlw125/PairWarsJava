@@ -25,4 +25,9 @@ public class Card {
 	public int getSuit() {
 		return this.suit;
 	} // end getSuit()
+	
+	public void killCard() {
+		suit = -1;
+		face = -1;
+	}
 } // end class Card

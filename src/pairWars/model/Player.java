@@ -2,33 +2,24 @@ package pairWars.model;
 
 import java.util.ArrayList;
 
-public class Player extends AbstractModel implements Runnable {
+public class Player extends AbstractModel {
 	int id;
 	ArrayList<Card> hand = new ArrayList<Card>();
-	// make list for pairs
+	ArrayList<Card> pairs = new ArrayList<Card>();
 	
 	public Player(int id) {
 		this.id = id;
-	}
+	} // end Player()
 	
 	public void getCard(Card card) {
 		hand.add(card);
-		System.out.println(id + " getting a card\n");
-		/*int temp = hand.size() - 1;
-		ModelEvent me = new ModelEvent(this, id, "NewCard", hand.get(temp).getFace(), hand.get(temp).getSuit(), -1, -1);
-		notifyChanged(me);*/
-	}
+	} // end getCard()
 	
 	// check if there is a pair in the players hand
 	public boolean isPair() {
 		for(int x = 0; x < hand.size()-1; x++) {
 			for(int y = x+1; y < hand.size(); y++) {
 				if(hand.get(x).getFace() == hand.get(y).getFace()) {
-					
-					// Send the pair to be accessed by the PlayerView
-					ModelEvent me = new ModelEvent(this, id, "Pair", hand.get(x).getFace(), hand.get(x).getSuit(), 
-													hand.get(y).getFace(), hand.get(x).getSuit());
-					notifyChanged(me);
 					System.out.println(id + " is the winner.\n");
 					return true;
 				} // end if
@@ -37,17 +28,35 @@ public class Player extends AbstractModel implements Runnable {
 		return false;
 	} // end isPair()
 	
+	public int returnPairs() {
+		return pairs.size() / 2;
+	}
+	
+	public void checkForPairs() {
+		ArrayList<Card> temp = hand;
+		for(int x = 0; x < hand.size()-1; x++) {
+			for(int y = x+1; y < hand.size(); y++) {
+				if(hand.get(x).getFace() == hand.get(y).getFace() && hand.get(x).getFace() != -1) {
+					Card tempCard1 = hand.get(x);
+					Card tempCard2 = hand.get(y);
+					pairs.add(tempCard1);
+					pairs.add(tempCard2);
+					hand.get(x).killCard();
+					hand.get(y).killCard();
+					temp.remove(x);
+					temp.remove(y-1);
+				}
+			}
+		}
+		hand = temp;
+	}
+	
 	public Card returnLastCard() {
 		int temp = hand.size()-1;
 		return hand.get(temp);
-	}
-
-	@Override
-	public void run() {	
-		
-	}
+	} // end returnLastCard()
 	
 	int getID() {
 		return id;
-	}
-}
+	} // end class getID()
+} // end class Player
