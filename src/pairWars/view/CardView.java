@@ -3,8 +3,10 @@ package pairWars.view;
 public class CardView {
 
 	public String getCard(int suit, int face) {
+		// this string is used to build up the card suit and rank to be displayed
 		String card = "";
 		
+		// check the suit of the card
 		switch(suit) {
 		case 0:
 			card += "\u2660";
@@ -19,9 +21,11 @@ public class CardView {
 			card += "\u2663";
 			break;
 		default:
+			card += "E";
 			break;
-		}
+		} // end switch/case
 
+		// check the face of the card
 		switch(face) {
 		case 1:
 			card += "A";
@@ -62,8 +66,11 @@ public class CardView {
 		case 13:
 			card += "K";
 			break;
-		}
+		default:
+			card += "E";
+			break;
+		} // end switch/case
 		
 		return card;
-	}
-}
+	} // end getCard()
+} // end class CardView

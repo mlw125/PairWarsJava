@@ -13,11 +13,14 @@ import pairWars.model.ModelEvent;
 
 public class PlayerView extends JFrameView {
 	
-	int id;
+	int id; // id of the player to match with in the model
+	// text field to display the cards
 	public JTextField cards;
-	ArrayList<Integer> suit = new ArrayList<Integer>();
-	ArrayList<Integer> face = new ArrayList<Integer>();
+	public JTextField pairs;
+	// Lists to hold the cards in the player's hand, as a string
+	ArrayList<String> cardsList = new ArrayList<String>();
 
+	// create the window parts
 	public PlayerView(Model model, Controller controller, int id) {
 		super(model, controller);
 		
@@ -30,32 +33,45 @@ public class PlayerView extends JFrameView {
 		cards.setText("No cards");
 		cards.setEditable(false);
 		
+		pairs = new JTextField();
+		pairs.setText("No cards");
+		pairs.setEditable(false);
+		
 		this.setLayout(new GridLayout(4, 4, 5, 5));
 		this.add(cards, null);
+		this.add(pairs, null);
 		this.pack();
-	}
+	} // end playerView
 
 	@Override
 	public void modelChanged(ModelEvent event) {
-		System.out.println(id + ": event recieved.");
+		// check to make sure the message is for this player
 		if(event.getPlayerID() == id) {
-			System.out.println(id + ": event for me");
+			// if the message is for a new card being added then add the card to the lists and update the text field.
 			if(event.getMessage().equals("NewCard")) {
-				suit.add(event.getSuit1());
-				face.add(event.getFace1());
-				updateCards();
+				int suit = event.getSuit1();
+				int face = event.getFace1();
+				updateCards(suit, face);
+			} // end if
+			else if(event.getMessage().equals("Pair")) {
+				
 			}
-		}
-	}
+			
+		} // end if
+	} // end modelChanged()	
 	
-	public void updateCards() {
+	// update the cards that are displayed
+	public void updateCards(int suit, int face) {
+		// reset the text for displaying the cards
 		cards.setText("");
-		for(int x = 0; x < suit.size(); x++) {
-			CardView cardStr = new CardView();
-			String cardValue = cardStr.getCard(suit.get(x), face.get(x));
+		// add the new card to the list
+		CardView cardStr = new CardView();
+		String cardValue = cardStr.getCard(suit, face);
+		cardsList.add(cardValue);		
+		// loop through and display every card in the player's hand
+		for(int x = 0; x < cardsList.size(); x++) {
 			String text = cards.getText();
-			cards.setText(text + " | " + cardValue + "\n");
-		}
-	}
-
-}
+			cards.setText(text + " | " + cardsList.get(x) + "\n");
+		} // end for
+	} // end updateCards()
+} // end class PlayerView

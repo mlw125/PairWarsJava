@@ -96,7 +96,7 @@ public class GameView extends JFrameView {
 		public void actionPerformed(ActionEvent e) {
 			// send textfield.getText for number of players
 			((GameController)getController()).operation(e.getActionCommand(), 3); 
-		   } // end actionPerformed
+		} // end actionPerformed
 	} // end class Handler
 	
 	// main function

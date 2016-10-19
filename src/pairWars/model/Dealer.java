@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Dealer {
 	
+	// the deck of cards
 	ArrayList<Card> deck;
 	
 	public Dealer() {
@@ -34,7 +35,9 @@ public class Dealer {
 	
 	// Return one card from the deck
 	public Card dealCard() {
-		if(deck.size() > 2) {
+		// modify this to make sure the empty card will not be returned
+		// if the deck has at least one card in it
+		if(deck.size() > 0) {
 			Card card = deck.get(0);
 			deck.remove(0);
 			return card;

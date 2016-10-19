@@ -1,5 +1,8 @@
 package pairWars.controller;
 
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+
 import pairWars.model.GameModel;
 import pairWars.view.GameView;
 import pairWars.view.JFrameView;
@@ -20,7 +23,7 @@ public class GameController extends AbstractController {
 		} else if(option.equals(GameView.EXIT)){ // pressing exit
 			((GameModel)getModel()).exit();
 		} else if(option.equals(GameView.STOP)){ // opening us window
-						
+				// may not be implemented	
 		} else if(option.equals(GameView.SAVE)){ // opening euro window
 				//((AccountModel)getModel()).openWindow(title, "OE");
 		} else if(option.equals("OK")){ // for closing dialog box
@@ -65,21 +68,7 @@ public class GameController extends AbstractController {
 					winner = true;
 				} // end if
 				
-				runGame = false;
-				
-				// make lock so the program doesn't go on
-				
-				//while(runGame == false) { }
-				
-				/*
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				*/
-				
+				runGame = false;				
 				
 				// make sure if we reach the last player created then we will start with the first player,
 				// otherwise go to next player
@@ -89,14 +78,12 @@ public class GameController extends AbstractController {
 					playerTurn++; // end else
 			} // end while
 			
+			// Need to find way to pause program without stopping the swing updating
 			/*
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			*/
+		    Timer timer = new Timer(5000, listener);
+		    timer.setRepeats(false);
+		    timer.start();
+		    */
 		} // end while
 		
 		// say game is over
