@@ -26,7 +26,7 @@ public class GameModel extends AbstractModel {
 	// deal out one card
 	public void deal() {
 		// loop through each of the players in the deck
-		for(int x = 0; x < 1; x++) {
+		for(int x = 0; x < 3; x++) {
 			// give each player 5 cards, might change later
 			for(int y = 0; y < players.size(); y++) {
 				// if the dealer is out of cards, then break the loop
@@ -73,9 +73,36 @@ public class GameModel extends AbstractModel {
 		} // end while
 	} // end pairCheck()
 	
-	public int numsPair(int playerID) {
-		System.out.println(players.get(playerID).returnPairs() + "\n");
-		return players.get(playerID).returnPairs();
+	public void numsPair() {
+
+		ArrayList<Integer> pairSizes = new ArrayList<Integer>();
+		for(int x = 0; x < players.size(); x++) {
+			pairSizes.add(players.get(x).returnPairs());
+		}
+		
+		int count = 1;
+		int biggest = -1;
+		int index = -1;
+		for(int y = 0; y < pairSizes.size(); y++) {
+			if(pairSizes.get(y) > biggest) {
+				biggest = pairSizes.get(y);
+				index = y;
+				count = 1;
+			} // end if
+			else if(pairSizes.get(y) == biggest) {
+				count++;
+			} // end else if
+		} // end for
+		
+		if(count == players.size()) {
+			System.out.println("Everybody ties");
+		} // end if
+		else if(count < players.size() && count > 1) {
+			System.out.println(count + " players have tied");
+		} // end else if
+		else if(count == 1) {
+			System.out.println("Player " + (players.get(index).getID()+1) + " has won with " + biggest + " pairs.");
+		} // end else if
 	} // end numsPair()	
 
 	public void exit() {

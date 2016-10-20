@@ -1,8 +1,5 @@
 package pairWars.controller;
 
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
-
 import pairWars.model.GameModel;
 import pairWars.view.GameView;
 import pairWars.view.JFrameView;
@@ -64,9 +61,8 @@ public class GameController extends AbstractController {
 				playerTurn++; // end else
 		} // end while
 
-		for(int x = 0; x < players; x ++) {
-			((GameModel)getModel()).numsPair(x);	
-		} // end for
+		// finds the winner of the game
+		((GameModel)getModel()).numsPair();	
 		
 		// say game is over
 		System.out.println("Game over");
