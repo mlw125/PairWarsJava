@@ -171,8 +171,8 @@ public class GameView extends JFrameView {
 		for(int x = 0; x < playerCount; x++) {
 			PlayerView newPlayer = new PlayerView(((GameModel)getModel()), ((GameController)getController()), x);
 			players.add(newPlayer);
-		}
-	}
+		} // end for
+	} // end Initialize()
 
 	public void clearPlayers() {
 		if(players.size() > 0) {
@@ -180,6 +180,6 @@ public class GameView extends JFrameView {
 				players.get(x).dispose();
 			} // end for
 			players.clear();
-		}
+		} // end if
 	} // end clearPlayers();
 } // end class GameView

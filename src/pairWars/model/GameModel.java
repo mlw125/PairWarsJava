@@ -26,7 +26,7 @@ public class GameModel extends AbstractModel {
 	// deal out one card
 	public void deal() {
 		// loop through each of the players in the deck
-		for(int x = 0; x < 5; x++) {
+		for(int x = 0; x < 1; x++) {
 			// give each player 5 cards, might change later
 			for(int y = 0; y < players.size(); y++) {
 				// if the dealer is out of cards, then break the loop
@@ -58,6 +58,25 @@ public class GameModel extends AbstractModel {
 	public Boolean isEmpty() {
 		return dealer.isEmpty();
 	} // end isEmpty()
+	
+	// check if there is a pair in the player's hand
+	public void pairCheck(int playerID) {
+		boolean stop = false;
+		while(stop != true) {
+			ArrayList<Integer> temp = players.get(playerID).checkForPairs();
+			if(temp.get(0) != -1) {
+				ModelEvent me = new ModelEvent(this, playerID, "Pairs", temp.get(0), temp.get(1), temp.get(2), temp.get(3));
+				notifyChanged(me);
+			} // end if
+			else
+				stop = true;
+		} // end while
+	} // end pairCheck()
+	
+	public int numsPair(int playerID) {
+		System.out.println(players.get(playerID).returnPairs() + "\n");
+		return players.get(playerID).returnPairs();
+	} // end numsPair()	
 
 	public void exit() {
 		// close the program

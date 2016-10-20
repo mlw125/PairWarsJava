@@ -29,5 +29,5 @@ public class Card {
 	public void killCard() {
 		suit = -1;
 		face = -1;
-	}
+	} // end killCard()
 } // end class Card

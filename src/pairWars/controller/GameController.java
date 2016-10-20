@@ -38,29 +38,23 @@ public class GameController extends AbstractController {
 	public void runGame(int players) {
 		// the starting player
 		int playerTurn = 0;
-		// to see if there was a winner
-		Boolean winner = false;
 		// create the dealer
 		((GameModel)getModel()).createDealer();
 		// create the players
 		((GameModel)getModel()).createPlayers(players);
 		// deal out the cards to everyone
 		((GameModel)getModel()).deal();
-			
+		
 		// loop until someone has a pair
-		while(winner != true) {
+		while(((GameModel)getModel()).isEmpty() != true) {
 			// deal with dealer having no cards left in the deck
 			// if the deck is not empty then deal out another card
 			if(((GameModel)getModel()).isEmpty() != true) {
 				((GameModel)getModel()).dealCard(playerTurn);
 			} // end if
-				
-			// check if the current player has a pair
-			if(((GameModel)getModel()).winner(playerTurn) == true) {
-				System.out.println("In winning loop.");
-				// will break the current loop
-				winner = true;
-			} // end if				
+			
+			// check for any pairs in the player's hand
+			((GameModel)getModel()).pairCheck(playerTurn);			
 				
 			// make sure if we reach the last player created then we will start with the first player,
 			// otherwise go to next player
@@ -69,6 +63,10 @@ public class GameController extends AbstractController {
 			else
 				playerTurn++; // end else
 		} // end while
+
+		for(int x = 0; x < players; x ++) {
+			((GameModel)getModel()).numsPair(x);	
+		} // end for
 		
 		// say game is over
 		System.out.println("Game over");
