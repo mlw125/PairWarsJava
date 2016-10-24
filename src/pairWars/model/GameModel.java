@@ -37,6 +37,9 @@ public class GameModel extends AbstractModel {
 				players.get(y).getCard(card);
 				ModelEvent me = new ModelEvent(this, players.get(y).getID(), "NewCard", card.getFace(), card.getSuit(), -1, -1);
 				notifyChanged(me);
+				
+				ModelEvent me2 = new ModelEvent(this, players.get(y).getID(), "Log", "Player " + players.get(y).getID() + " gained a card." );
+				notifyChanged(me2);
 			} // end for
 			// if the dealer has no more cards then break out of the loop and end dealing
 			if(dealer.isEmpty() == true) 
@@ -49,6 +52,9 @@ public class GameModel extends AbstractModel {
 		Card temp = players.get(playerID).returnLastCard();
 		ModelEvent me = new ModelEvent(this, playerID, "NewCard", temp.getFace(), temp.getSuit(), -1, -1);
 		notifyChanged(me);
+		
+		ModelEvent me2 = new ModelEvent(this, playerID, "Log", "Player " + playerID + " was dealt a card." );
+		notifyChanged(me2);
 	} // end dealCard()
 	
 	public Boolean winner(int playerID) {
@@ -67,6 +73,9 @@ public class GameModel extends AbstractModel {
 			if(temp.get(0) != -1) {
 				ModelEvent me = new ModelEvent(this, playerID, "Pairs", temp.get(0), temp.get(1), temp.get(2), temp.get(3));
 				notifyChanged(me);
+				
+				ModelEvent me2 = new ModelEvent(this, playerID, "Log", "Player " + playerID + " has a pair." );
+				notifyChanged(me2);
 			} // end if
 			else
 				stop = true;
@@ -95,13 +104,16 @@ public class GameModel extends AbstractModel {
 		} // end for
 		
 		if(count == players.size()) {
-			System.out.println("Everybody ties");
+			ModelEvent me2 = new ModelEvent(this, 0, "Log", "Everybody ties" );
+			notifyChanged(me2);
 		} // end if
 		else if(count < players.size() && count > 1) {
-			System.out.println(count + " players have tied");
+			ModelEvent me2 = new ModelEvent(this, 0, "Log", count + " players have tied" );
+			notifyChanged(me2);
 		} // end else if
 		else if(count == 1) {
-			System.out.println("Player " + (players.get(index).getID()+1) + " has won with " + biggest + " pairs.");
+			ModelEvent me2 = new ModelEvent(this, 0, "Log", "Player " + (players.get(index).getID()+1) + " has won with " + biggest + " pairs.");
+			notifyChanged(me2);
 		} // end else if
 	} // end numsPair()	
 

@@ -33,6 +33,10 @@ public class ModelEvent extends ActionEvent {
 	public String getMessage() {
 		return message;
 	}
+
+	public String getMessage2() {
+		return message2;
+	}
 	
 	public int getFace1() {
 		return face1;

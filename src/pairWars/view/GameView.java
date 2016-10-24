@@ -29,12 +29,16 @@ public class GameView extends JFrameView {
 	private boolean severeError = false;
 	
 	int playerCount = 0;
-	ArrayList<PlayerView> players = new ArrayList<PlayerView>(); 
+	ArrayList<PlayerView> players = new ArrayList<PlayerView>();
+	
+	LogView gameLog;
 
 	public GameView(GameModel model, GameController controller) {
 		super(model, controller);
 		
-		this.setTitle("Pair Wars");		
+		this.setTitle("Pair Wars");
+		
+		gameLog = new LogView(model, controller);
 		
 		JPanel buttonPanel = new JPanel();
 		//JPanel agentPanel = new JPanel(); 
@@ -170,8 +174,12 @@ public class GameView extends JFrameView {
 		this.playerCount = playerCount;
 		for(int x = 0; x < playerCount; x++) {
 			PlayerView newPlayer = new PlayerView(((GameModel)getModel()), ((GameController)getController()), x);
+			newPlayer.setSize(500, 200);
 			players.add(newPlayer);
 		} // end for
+		
+		gameLog.setVisible(true);
+		gameLog.setSize(500, 200);
 	} // end Initialize()
 
 	public void clearPlayers() {
@@ -181,5 +189,7 @@ public class GameView extends JFrameView {
 			} // end for
 			players.clear();
 		} // end if
+		
+		gameLog.dispose();
 	} // end clearPlayers();
 } // end class GameView
