@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import pairWars.controller.Controller;
-import pairWars.controller.GameController;
 import pairWars.model.Model;
 import pairWars.model.ModelEvent;
 
@@ -38,8 +37,8 @@ public class PlayerView extends JFrameView {
 		pairs = new JTextField();
 		pairs.setText("No cards");
 		pairs.setEditable(false);
-		
-		this.setLayout(new GridLayout(4, 4, 5, 5));
+
+		this.setLayout(new GridLayout(2, 1));
 		this.add(cards, null);
 		this.add(pairs, null);
 		this.pack();
