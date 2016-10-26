@@ -10,12 +10,31 @@ public class GameModel extends AbstractModel {
 	Dealer dealer;
 	
 	// create the number of players specified by either the program or the user
-	public void createPlayers(int n) {
-		players = new ArrayList<Player>();
-		for(int x = 0; x < n; x++) {
-			Player newPlayer = new Player(x);
-			players.add(newPlayer);
-		} // end for
+	public void createPlayers(String n) {		
+		try {
+			int numPlayers = Integer.parseInt(n);
+			
+			if(numPlayers < 1) {
+				ModelEvent me = new ModelEvent(this, -1, "Num", "Too few players.");
+				notifyChanged(me);
+			}
+			else if(numPlayers > 7) {
+				ModelEvent me = new ModelEvent(this, -1, "Num", "Too many players.");
+				notifyChanged(me);
+			}
+			players = new ArrayList<Player>();
+			for(int x = 0; x < numPlayers; x++) {
+				Player newPlayer = new Player(x);
+				players.add(newPlayer);
+			} // end for
+			ModelEvent me = new ModelEvent(this, -1, "Ini", n);
+			notifyChanged(me);
+		
+		}
+		catch (NumberFormatException e) {
+			ModelEvent me = new ModelEvent(this, -1, "Num", "Issue with number of players.");
+			notifyChanged(me);
+		} // end catch
 	} // createPlayers()
 	
 	// create the dealer and they will immediately get a deck and shuffle it
@@ -38,7 +57,7 @@ public class GameModel extends AbstractModel {
 				ModelEvent me = new ModelEvent(this, players.get(y).getID(), "NewCard", card.getFace(), card.getSuit(), -1, -1);
 				notifyChanged(me);
 				
-				ModelEvent me2 = new ModelEvent(this, -1, "Log", "Player " + players.get(y).getID() + " gained a card." );
+				ModelEvent me2 = new ModelEvent(this, -1, "Log", "Player " + (players.get(y).getID()+1) + " gained a card." );
 				notifyChanged(me2);
 			} // end for
 			// if the dealer has no more cards then break out of the loop and end dealing
@@ -53,7 +72,7 @@ public class GameModel extends AbstractModel {
 		ModelEvent me = new ModelEvent(this, playerID, "NewCard", temp.getFace(), temp.getSuit(), -1, -1);
 		notifyChanged(me);
 		
-		ModelEvent me2 = new ModelEvent(this, -1, "Log", "Player " + playerID + " was dealt a card." );
+		ModelEvent me2 = new ModelEvent(this, -1, "Log", "Player " + (playerID+1) + " was dealt a card." );
 		notifyChanged(me2);
 	} // end dealCard()
 	
@@ -74,7 +93,7 @@ public class GameModel extends AbstractModel {
 				ModelEvent me = new ModelEvent(this, playerID, "Pairs", temp.get(0), temp.get(1), temp.get(2), temp.get(3));
 				notifyChanged(me);
 				
-				ModelEvent me2 = new ModelEvent(this, -1, "Log", "Player " + playerID + " has a pair." );
+				ModelEvent me2 = new ModelEvent(this, -1, "Log", "Player " + (playerID+1) + " has a pair." );
 				notifyChanged(me2);
 			} // end if
 			else

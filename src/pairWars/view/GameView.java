@@ -30,6 +30,7 @@ public class GameView extends JFrameView {
 	
 	int playerCount = 0;
 	ArrayList<PlayerView> players = new ArrayList<PlayerView>();
+	JTextField player;
 	
 	LogView gameLog;
 
@@ -52,19 +53,18 @@ public class GameView extends JFrameView {
 		JButton jButtonStop = new JButton(STOP); 
 		jButtonStop.addActionListener(handler); 
 		
-		buttonPanel.setLayout(new GridLayout(4, 4, 5, 5));
+		//buttonPanel.setLayout(new GridLayout(4, 4, 5, 5));
 		buttonPanel.add(jButtonSave);
 		buttonPanel.add(jButtonExit);
 		buttonPanel.add(jButtonRun);
 		buttonPanel.add(jButtonStop);
 		
-		JTextField players = new JTextField();
-		players.setText("vbsbsbs");
+		player = new JTextField();
+		player.setText("Enter Number of Players Here");
 		
-		//this.setLayout(new GridLayout(4, 4, 5, 5));
-		//this.getContentPane().add(players, null);
+		this.setLayout(new GridLayout(4, 4, 5, 5));
+		this.getContentPane().add(player, null);
 		this.getContentPane().add(buttonPanel, BorderLayout.CENTER);
-		//this.add(players, null);
 		pack();
 	}
 
@@ -72,24 +72,11 @@ public class GameView extends JFrameView {
 	public void modelChanged(ModelEvent event) {
 		// if the message contains E, then that means error and this view will
 		// handle the event
-		if(event.getMessage().equals("E")) {
-			/*
-			if(event.getTitle().equals("NUM")) { // number formatting error
-				errorBox("NUM");
-			} else if(event.getTitle().equals("NEG")) { // negative number for amount
-				errorBox("NEG");
-			} else if(event.getTitle().equals("LOAD")) { // loading file error, is severe
-				errorBox("LOAD");
-			} else if(event.getTitle().equals("SAVE")) { // saving file error, is severe
-				errorBox("SAVE");
-			} else if(event.getTitle().equals("ID")) { // for not having a unique thread id
-				errorBox("ID");
-			} else if(event.getTitle().equals("EM")) { // for having empty fields in a StartAgent window
-				errorBox("EM");
-			}// end if/else
-			*/
-		} else if (event.getMessage().equals("IC")) { // if the message is for initializing the view
-			//initComboBox();
+		if(event.getMessage().equals("NUM")) {
+			errorBox(event.getMessage2());
+		} else if (event.getMessage().equals("Ini")) { // if the message is for initializing the view
+			int playerCount = Integer.parseInt(event.getMessage2());
+			Initialize(playerCount);
 		} else if (event.getMessage().equals("RT")) { // if the message says to create a RunAgent window			
 		} // end if/else
 	}
@@ -98,8 +85,9 @@ public class GameView extends JFrameView {
 	class Handler implements ActionListener {
 		// Event handling is handled locally
 		public void actionPerformed(ActionEvent e) {
+			String number = player.getText();
 			// send textfield.getText for number of players
-			((GameController)getController()).operation(e.getActionCommand(), 3); 
+			((GameController)getController()).operation(e.getActionCommand(), number); 
 		} // end actionPerformed
 	} // end class Handler
 	
@@ -180,6 +168,8 @@ public class GameView extends JFrameView {
 		
 		gameLog.setVisible(true);
 		gameLog.setSize(500, 200);
+		
+		((GameController)getController()).operation("Start", Integer.toString(playerCount)); 
 	} // end Initialize()
 
 	public void clearPlayers() {

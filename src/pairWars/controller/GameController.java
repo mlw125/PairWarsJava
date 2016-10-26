@@ -13,16 +13,17 @@ public class GameController extends AbstractController {
 	} // end GameController()
 	
 	// for GameView operations
-	public void operation(String option, int players){
+	public void operation(String option, String players){
 		if(option.equals(GameView.RUN)){ // pressing Run
 			// kill the old players
 			((GameView)getView()).clearPlayers();
-			// create the new players
-			((GameView)getView()).Initialize(players);
 			// have this run multiple games
-			runGame(players);
+			((GameModel)getModel()).createPlayers(players);
+			//runGame(players);
 		} else if(option.equals(GameView.EXIT)){ // pressing exit
 			((GameModel)getModel()).exit();
+		} else if(option.equals("Start")){ // pressing exit
+				runGame(players);
 		} else if(option.equals(GameView.STOP)){ // opening us window
 				// may not be implemented	
 		} else if(option.equals(GameView.SAVE)){ // opening euro window
@@ -32,13 +33,14 @@ public class GameController extends AbstractController {
 		} // end if/else			
 	} // end operation()
 	
-	public void runGame(int players) {
+	public void runGame(String players) {
 		// the starting player
 		int playerTurn = 0;
 		// create the dealer
 		((GameModel)getModel()).createDealer();
 		// create the players
-		((GameModel)getModel()).createPlayers(players);
+		//((GameModel)getModel()).createPlayers(players);
+		int playersInt = Integer.parseInt(players);
 		// deal out the cards to everyone
 		((GameModel)getModel()).deal();
 		
@@ -55,7 +57,7 @@ public class GameController extends AbstractController {
 				
 			// make sure if we reach the last player created then we will start with the first player,
 			// otherwise go to next player
-			if(playerTurn+1 == players)
+			if(playerTurn+1 == playersInt)
 				playerTurn = 0; // end if
 			else
 				playerTurn++; // end else
