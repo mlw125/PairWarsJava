@@ -10,29 +10,37 @@ public class GameModel extends AbstractModel {
 	Dealer dealer;
 	
 	// create the number of players specified by either the program or the user
-	public void createPlayers(String n) {		
+	public void createPlayers(String n) {
+		// if the number was sent as a non-number then throw an exception
 		try {
+			// convert the String into an int
 			int numPlayers = Integer.parseInt(n);
 			
+			// if the number of players is less 1 then send an error
 			if(numPlayers < 1) {
-				ModelEvent me = new ModelEvent(this, -1, "Num", "Too few players.");
+				ModelEvent me = new ModelEvent(this, -1, "NUM", "Too few players.");
 				notifyChanged(me);
-			}
+			} // end if
+			// if the number of players is greater than 7 then send an error
 			else if(numPlayers > 7) {
-				ModelEvent me = new ModelEvent(this, -1, "Num", "Too many players.");
+				ModelEvent me = new ModelEvent(this, -1, "NUM", "Too many players.");
 				notifyChanged(me);
-			}
-			players = new ArrayList<Player>();
-			for(int x = 0; x < numPlayers; x++) {
-				Player newPlayer = new Player(x);
-				players.add(newPlayer);
-			} // end for
-			ModelEvent me = new ModelEvent(this, -1, "Ini", n);
-			notifyChanged(me);
-		
-		}
+			} // end else if
+			/// otherwise set the game up like it needs to be
+			else {
+				// set the array list to a new list
+				players = new ArrayList<Player>();
+				// create the correct number of players
+				for(int x = 0; x < numPlayers; x++) {
+					Player newPlayer = new Player(x);
+					players.add(newPlayer);
+				} // end for
+				ModelEvent me = new ModelEvent(this, -1, "Ini", n);
+				notifyChanged(me);
+			} // end else		
+		} // end try
 		catch (NumberFormatException e) {
-			ModelEvent me = new ModelEvent(this, -1, "Num", "Issue with number of players.");
+			ModelEvent me = new ModelEvent(this, -1, "NUM", "Issue with number of players.");
 			notifyChanged(me);
 		} // end catch
 	} // createPlayers()
@@ -67,11 +75,14 @@ public class GameModel extends AbstractModel {
 	} // end deal()
 	
 	public void dealCard(int playerID) {
+		//hand out a card to the player with the matching id
 		players.get(playerID).getCard(dealer.dealCard());
+		// get the card the player just got for display purposes
 		Card temp = players.get(playerID).returnLastCard();
+		// send the event so that the card can be displayed on the playerview
 		ModelEvent me = new ModelEvent(this, playerID, "NewCard", temp.getFace(), temp.getSuit(), -1, -1);
 		notifyChanged(me);
-		
+		// send an even so that the even can be logged by logview
 		ModelEvent me2 = new ModelEvent(this, -1, "Log", "Player " + (playerID+1) + " was dealt a card." );
 		notifyChanged(me2);
 	} // end dealCard()
@@ -101,35 +112,46 @@ public class GameModel extends AbstractModel {
 		} // end while
 	} // end pairCheck()
 	
+	// this method will find the number of pairs in each players hand and then figure out who the winner is
 	public void numsPair() {
-
+		// create an array list of integers to hold the number of pairs each has
 		ArrayList<Integer> pairSizes = new ArrayList<Integer>();
 		for(int x = 0; x < players.size(); x++) {
 			pairSizes.add(players.get(x).returnPairs());
-		}
+		} // end for
 		
+		// this will hold the number of players with the same amount of pairs.
 		int count = 1;
+		// this will hold the largest number we find
 		int biggest = -1;
+		// this will get the index of the player with the largest pair count
 		int index = -1;
+		// loop through each of the players
 		for(int y = 0; y < pairSizes.size(); y++) {
+			// if the player has a bigger pair count than the others than it is the new biggest.
+			// the index is set to the current player and we will reset the count.
 			if(pairSizes.get(y) > biggest) {
 				biggest = pairSizes.get(y);
 				index = y;
 				count = 1;
 			} // end if
+			// otherwise increment the count value
 			else if(pairSizes.get(y) == biggest) {
 				count++;
 			} // end else if
 		} // end for
 		
+		// if the count is equal to the number of players then we every ties
 		if(count == players.size()) {
 			ModelEvent me2 = new ModelEvent(this, -1, "Log", "Everybody ties" );
 			notifyChanged(me2);
 		} // end if
+		// if the the count is not equal to everyone, but more than one person then a few people tied.
 		else if(count < players.size() && count > 1) {
 			ModelEvent me2 = new ModelEvent(this, -1, "Log", count + " players have tied" );
 			notifyChanged(me2);
 		} // end else if
+		// if only one player has the biggest pair count then we display that player
 		else if(count == 1) {
 			ModelEvent me2 = new ModelEvent(this, -1, "Log", "Player " + (players.get(index).getID()+1) + " has won with " + biggest + " pairs.");
 			notifyChanged(me2);

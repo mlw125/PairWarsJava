@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -21,7 +22,6 @@ public class GameView extends JFrameView {
 	public static final String SAVE = "Save";
 	public static final String EXIT = "Exit";
 	public static final String RUN = "Run"; 
-	public static final String STOP = "Stop";
 	
 	// the dialog box
 	public JDialog error;
@@ -50,19 +50,20 @@ public class GameView extends JFrameView {
 		jButtonExit.addActionListener(handler); 
 		JButton jButtonRun = new JButton(RUN); 
 		jButtonRun.addActionListener(handler); 
-		JButton jButtonStop = new JButton(STOP); 
-		jButtonStop.addActionListener(handler); 
 		
 		//buttonPanel.setLayout(new GridLayout(4, 4, 5, 5));
 		buttonPanel.add(jButtonSave);
 		buttonPanel.add(jButtonExit);
 		buttonPanel.add(jButtonRun);
-		buttonPanel.add(jButtonStop);
+		
+		JLabel instructions = new JLabel();
+		instructions.setText("Players must be between 1-7 players.");
 		
 		player = new JTextField();
 		player.setText("Enter Number of Players Here");
 		
 		this.setLayout(new GridLayout(4, 4, 5, 5));
+		this.getContentPane().add(instructions, null);
 		this.getContentPane().add(player, null);
 		this.getContentPane().add(buttonPanel, BorderLayout.CENTER);
 		pack();
@@ -99,28 +100,7 @@ public class GameView extends JFrameView {
 	// for creating the error dialog box
 	public void errorBox(String errorType) {
 		// string hold the message
-		String message = "Test";
-		// if the error is number formatting
-		if(errorType == "NUM") {
-		    message = "Only Numbers are allowed";
-		   } // end if
-		// if the error is a negative number
-		else if(errorType == "NEG") {
-		    message = "Amount Cannot Not Be Negative";
-		} // end else if
-		// if the error is from file saving
-		else if(errorType == "SAVE") {
-		    message = "Error on saving File";
-		    severeError = true;
-		} // end else if
-		// if the error is not having a unique thread id
-		else if(errorType == "ID") {
-		    message = "Agent ID must be Unique";
-		} // end else if
-		// if the error is having empty fields for a StartAgent window
-		else if(errorType == "EM") {
-		    message = "A field cannot be left empty";
-		} // end else if
+		String message = errorType;
 			
 		// create new dialog box()
 		error = new JDialog();
@@ -159,20 +139,26 @@ public class GameView extends JFrameView {
 	} // end hideError()
 
 	public void Initialize(int playerCount) {
+		// get the player count and store it
 		this.playerCount = playerCount;
+		// loop through the players and create a player view for each
 		for(int x = 0; x < playerCount; x++) {
+			// create a player
 			PlayerView newPlayer = new PlayerView(((GameModel)getModel()), ((GameController)getController()), x);
 			newPlayer.setSize(500, 200);
 			players.add(newPlayer);
 		} // end for
 		
+		// set the game log to visible so the user can see it
 		gameLog.setVisible(true);
 		gameLog.setSize(500, 200);
 		
+		// tell the controller to start the game
 		((GameController)getController()).operation("Start", Integer.toString(playerCount)); 
 	} // end Initialize()
 
 	public void clearPlayers() {
+		// this will dispose of all players, assuming there are any
 		if(players.size() > 0) {
 			for(int x = 0; x < players.size(); x++) {
 				players.get(x).dispose();

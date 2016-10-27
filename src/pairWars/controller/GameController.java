@@ -24,12 +24,10 @@ public class GameController extends AbstractController {
 			((GameModel)getModel()).exit();
 		} else if(option.equals("Start")){ // pressing exit
 				runGame(players);
-		} else if(option.equals(GameView.STOP)){ // opening us window
-				// may not be implemented	
 		} else if(option.equals(GameView.SAVE)){ // opening euro window
 				//((AccountModel)getModel()).openWindow(title, "OE");
 		} else if(option.equals("OK")){ // for closing dialog box
-			//((GameView)getView()).hideError();
+			((GameView)getView()).hideError();
 		} // end if/else			
 	} // end operation()
 	

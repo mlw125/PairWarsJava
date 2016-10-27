@@ -9,6 +9,7 @@ public class Dealer {
 	// the deck of cards
 	ArrayList<Card> deck;
 	
+	// create a deck and shuffle it
 	public Dealer() {
 		createDeck();
 		shuffle();
@@ -48,6 +49,7 @@ public class Dealer {
 		} // end else
 	} // end dealCard()
 	
+	// return true or false based on the size of the deck
 	public Boolean isEmpty() {
 		if(deck.size() == 0) {
 			return true;

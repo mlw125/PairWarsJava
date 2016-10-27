@@ -9,6 +9,7 @@ public class ModelEvent extends ActionEvent {
 	private int suit2;
 	private String message;
 	private String message2;
+	// this method will be used for displaying card from the model to the view
 	public ModelEvent(Object obj, int playerID, String message, int face1, int suit1, int face2, int suit2){
 		super(obj, 1, message);
 		this.face1 = face1;
@@ -17,14 +18,15 @@ public class ModelEvent extends ActionEvent {
 		this.suit2 = suit2;
 		this.playerID = playerID;
 		this.message = message;
-	}
+	} // end ModelEvent(Object, int, String, int, int, int, int)
 	
+	// this one will mainly be used for displaying information to the log
 	public ModelEvent(Object obj, int playerID, String message, String message2){
 		super(obj, 1, message);
 		this.playerID = playerID;
 		this.message = message;
 		this.message2 = message2;
-	}
+	} // end ModelEvent(Object, int, String, String)
 	
 	public int getPlayerID() {
 		return playerID;
